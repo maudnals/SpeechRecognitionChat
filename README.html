@@ -1,0 +1,60 @@
+<h1 id="frontendchallenge">frontend-challenge</h1>
+<h2 id="yourtask">Your task:</h2>
+<p>You need implement app that would process speech input and transform it to text using ASRClient library.
+Use current code as an example of how to use ASRClient module.</p>
+<h2 id="requirements">Requirements:</h2>
+<ol>
+<li>User React/Redux stack (other libraries permitted too).</li>
+<li>Open the speech recognition connection using the provided adapter (ASRClient).</li>
+<li>Render the transcript:<ul>
+<li>Render phrases as chat bubbles. Phrases should be splitted into separate bubbles if the latest appears 2 sec later after the previous.</li>
+<li>Highlight spotting phrases that appeared in transcript</li></ul></li>
+<li>Display the state of session on top of the screen.<ul>
+<li>either <code>Session started</code> or <code>Disconnected</code> or <code>Error</code> (in which case you should display the error message).</li></ul></li>
+<li>Start/stop button should change titles accordingly.</li>
+</ol>
+<p><strong>Optional (but big plus)</strong></p>
+<ol>
+<li>Implement virtual scroll for log transcripts</li>
+<li>Add some unit/integration/e2e tests. Or describe how you would approach testing.</li>
+</ol>
+<h2 id="mockupoffinalresult">Mockup of final result:</h2>
+<p><img src="./transcript-mock.png" alt="mockup" /></p>
+<h2 id="asrclient">ASRClient:</h2>
+<p>ASRClient is responsible for capturing audio input, sending data to i2x service and returning speech transcripts.   </p>
+<ul>
+<li><h3 id="asrclient-1">ASRClient</h3>
+<p>Constructor of the speech recognition client.</p>
+<p><strong>params</strong>
+<em>endpoint</em> - server endpoint (wss://vibe-rc.i2x.ai);</p></li>
+<li><h3 id="start">start</h3>
+<p>Starts the speech recognition session</p>
+<p><strong>params</strong></p>
+<p><em>spottingPhrases</em> — array of phrases that should be highlighted in the sound stream</p>
+<p><em>callback</em> — function which will be called when new chunk of sound is transcribed. 
+First argument is an error. Second argument is a result object with transcription.</p>
+<p><strong>result object format</strong></p>
+<pre><code>{
+  "transcript": {
+    // transcripted words
+    "utterance": "Hello, how are you?", 
+    // time of the phrase start from the beginning of the session
+    "startOffsetMsec": 420, 
+    // time of the phrase end from the beginning of the session
+    "endOffsetMsec": 2730 
+  },
+  // spotted words in this phrase from the `spottingPhrases`
+  "spotted": [
+    "hello" 
+  ]
+}
+</code></pre></li>
+<li><h3 id="stop">stop</h3>
+<p>Finishes speech recognition session</p></li>
+<li><h3 id="updatespottingconfig">updateSpottingConfig</h3>
+<p>Updates the list of spotting phrases. Throws an error if session is not started.</p>
+<p><strong>params</strong></p>
+<p><em>spottingPhrases</em> — array of phrases that should be highlighted in the sound stream</p></li>
+<li><h3 id="isstarted">isStarted</h3>
+<p>Returns true if session is started.</p></li>
+</ul>
