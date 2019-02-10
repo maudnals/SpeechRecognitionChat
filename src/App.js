@@ -19,6 +19,7 @@ class App extends Component {
     this.props.updateSessionStatus(SESSION_STATUSES.STARTED);
     // would need a callback here!
     this.ASRInstance.start(compact(this.state.phrases), this._onMessage);
+    console.log(this.ASRInstance);
   };
 
   _stopSession = () => {
@@ -53,29 +54,33 @@ class App extends Component {
       <Fragment>
         <div>
           <SessionStatusIndicator sessionStatus={this.props.sessionStatus} />
-          <button onClick={this._onToggle}>
-            {this.props.sessionStatus === SESSION_STATUSES.STARTED
-              ? 'Stop'
-              : 'Start'}
-          </button>
         </div>
-        <div>
-          <textarea
-            onChange={this._onUpdatePhrases}
-            value={this.state.phrases.join('\n')}
-            cols="30"
-            rows="10"
-          />
+        <div className="flex">
+          <div
+            className="mr05 mv1"
+            style={{
+              height: '30vh',
+              width: '100%',
+              overflowY: 'auto',
+              border: '1px solid black'
+            }}
+          >
+            <pre>{this.state.log}</pre>
+          </div>
+          <div className="mv1">
+            <textarea
+              onChange={this._onUpdatePhrases}
+              value={this.state.phrases.join('\n')}
+              cols="30"
+              rows="10"
+            />
+          </div>
         </div>
-        <div
-          style={{
-            height: 600,
-            overflowY: 'auto',
-            border: '1px solid black'
-          }}
-        >
-          <pre>{this.state.log}</pre>
-        </div>
+        <button onClick={this._onToggle}>
+          {this.props.sessionStatus === SESSION_STATUSES.STARTED
+            ? 'Stop'
+            : 'Start'}
+        </button>
       </Fragment>
     );
   }
