@@ -10,27 +10,23 @@ class App extends Component {
   ASRInstance = new ASRClient('wss://vibe-rc.i2x.ai');
 
   state = {
-    started: false,
     phrases: ['product', 'Hi', 'Hello', 'My name is'],
     log: ''
   };
 
   _startSession = () => {
-    this.setState({ started: true }, () => {
-      this.props.updateSessionStatus(SESSION_STATUSES.STARTED);
-    });
+    this.props.updateSessionStatus(SESSION_STATUSES.STARTED);
+    // would need a callback here!
     this.ASRInstance.start(compact(this.state.phrases), this._onMessage);
   };
 
   _stopSession = () => {
-    this.setState({ started: false }, () => {
-      this.props.updateSessionStatus(SESSION_STATUSES.STOPPED);
-    });
+    this.props.updateSessionStatus(SESSION_STATUSES.STOPPED);
     this.ASRInstance.stop();
   };
 
   _onToggle = () => {
-    if (this.state.started) {
+    if (this.props.sessionStatus === SESSION_STATUSES.STARTED) {
       this._stopSession();
     } else {
       this._startSession();
@@ -57,7 +53,9 @@ class App extends Component {
         <div>
           <div>{this.props.sessionStatus}</div>
           <button onClick={this._onToggle}>
-            {this.state.started ? 'Stop' : 'Start'}
+            {this.props.sessionStatus === SESSION_STATUSES.STARTED
+              ? 'Stop'
+              : 'Start'}
           </button>
         </div>
         <div>
