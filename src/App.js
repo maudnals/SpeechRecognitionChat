@@ -12,7 +12,7 @@ class App extends Component {
 
   state = {
     phrases: ['product', 'Hi', 'Hello', 'My name is'],
-    log: ''
+    log: []
   };
 
   _startSession = () => {
@@ -44,12 +44,17 @@ class App extends Component {
   };
 
   _onMessage = (error, results) => {
-    this.setState({
-      log: this.state.log + '\n' + JSON.stringify(results, null, 2)
-    });
+    console.log(results);
+    this.setState(state => ({
+      log: [...state.log, results]
+    }));
   };
 
   render() {
+    console.log(this.state.log);
+    const sentences = this.state.log.map(l => (
+      <div>{l.transcript.utterance}</div>
+    ));
     return (
       <Fragment>
         <div>
@@ -65,7 +70,7 @@ class App extends Component {
               border: '1px solid black'
             }}
           >
-            <pre>{this.state.log}</pre>
+            <pre>{sentences}</pre>
           </div>
           <div className="mv1">
             <textarea
