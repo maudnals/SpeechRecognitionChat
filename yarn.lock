@@ -1988,6 +1988,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.5:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
 clean-css@4.2.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.1.tgz#2d411ef76b8569b6d0c84068dabe85b0aa5e5c17"
@@ -6957,6 +6961,12 @@ react-app-polyfill@^0.2.0:
     promise "8.0.2"
     raf "3.4.0"
     whatwg-fetch "3.0.0"
+
+react-cx@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/react-cx/-/react-cx-0.1.12.tgz#d1587e042b6edd801547953e389f5b91f20ae9c5"
+  dependencies:
+    classnames "^2.2.5"
 
 react-dev-utils@^7.0.1:
   version "7.0.1"

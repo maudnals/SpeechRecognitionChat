@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ASRClient } from './asr/ASRClient';
 import { updateSessionStatus } from './redux/actions';
 import { getSessionStatus } from './redux/selectors';
+import SessionStatusIndicator from './components/SessionStatusIndicator';
 import SESSION_STATUSES from './const/sessionStatuses';
 
 class App extends Component {
@@ -51,7 +52,7 @@ class App extends Component {
     return (
       <Fragment>
         <div>
-          <div>{this.props.sessionStatus}</div>
+          <SessionStatusIndicator sessionStatus={this.props.sessionStatus} />
           <button onClick={this._onToggle}>
             {this.props.sessionStatus === SESSION_STATUSES.STARTED
               ? 'Stop'
@@ -67,7 +68,11 @@ class App extends Component {
           />
         </div>
         <div
-          style={{ height: 600, overflowY: 'auto', border: '1px solid black' }}
+          style={{
+            height: 600,
+            overflowY: 'auto',
+            border: '1px solid black'
+          }}
         >
           <pre>{this.state.log}</pre>
         </div>

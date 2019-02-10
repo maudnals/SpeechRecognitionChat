@@ -1,0 +1,6 @@
+.SessionStatusIndicator .stopped {
+  color: red;
+}
+.SessionStatusIndicator .started {
+  color: green;
+}
