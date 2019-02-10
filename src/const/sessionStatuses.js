@@ -1,6 +1,6 @@
 const SESSION_STATUSES = Object.freeze({
-  stopped: 'stopped',
-  started: 'started'
+  STOPPED: 'stopped',
+  STARTED: 'started'
 });
 
 export default SESSION_STATUSES;

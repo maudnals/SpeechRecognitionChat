@@ -2,7 +2,7 @@ import { UPDATE_SESSION_STATUS } from './actionTypes';
 import SESSION_STATUSES from '../const/sessionStatuses';
 
 const initialState = {
-  sessionStatus: SESSION_STATUSES.stopped
+  sessionStatus: SESSION_STATUSES.STOPPED
 };
 
 // no need for combineReducers here, the app is simple
