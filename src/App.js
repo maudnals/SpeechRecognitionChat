@@ -5,6 +5,7 @@ import { ASRClient } from './asr/ASRClient';
 import { updateSessionStatus } from './redux/actions';
 import { getSessionStatus } from './redux/selectors';
 import SessionStatusIndicator from './components/SessionStatusIndicator';
+import SpeechBubble from './components/SpeechBubble';
 import SESSION_STATUSES from './const/sessionStatuses';
 
 class App extends Component {
@@ -12,11 +13,11 @@ class App extends Component {
 
   state = {
     phrases: ['product', 'Hi', 'Hello', 'My name is'],
-    log: []
+    transcriptLog: []
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.log.length !== this.state.log.length) {
+    if (prevState.transcriptLog.length !== this.state.transcriptLog.length) {
       if (this.transcript) {
         this.transcript.scrollTop = this.transcript.scrollHeight;
       }
@@ -27,7 +28,7 @@ class App extends Component {
     this.props.updateSessionStatus(SESSION_STATUSES.STARTED);
     // would need a callback here!
     this.ASRInstance.start(compact(this.state.phrases), this._onMessage);
-    console.log(this.ASRInstance);
+    // console.log(this.ASRInstance);
   };
 
   _stopSession = () => {
@@ -52,17 +53,22 @@ class App extends Component {
   };
 
   _onMessage = (error, results) => {
-    console.log('results', results);
     this.setState(state => ({
-      log: [...state.log, { ...results, timestamp: Date.now() }]
+      transcriptLog: [
+        ...state.transcriptLog,
+        { ...results, timestamp: Date.now() }
+      ]
     }));
   };
 
   render() {
-    console.log(this.state.log);
-    const sentences = this.state.log.map(l => (
-      <div key={l.timestamp}>{l.transcript.utterance}</div>
+    const transcriptMessages = this.state.transcriptLog.map(l => (
+      <SpeechBubble key={l.timestamp}>
+        <div className="bubble">{l.transcript.utterance}</div>
+      </SpeechBubble>
     ));
+    console.log(transcriptMessages);
+
     return (
       <Fragment>
         <div>
@@ -78,7 +84,7 @@ class App extends Component {
               overflowY: 'auto'
             }}
           >
-            <pre>{sentences}</pre>
+            <pre>{transcriptMessages}</pre>
           </div>
           <div className="mv1">
             <textarea
@@ -89,10 +95,10 @@ class App extends Component {
             />
           </div>
         </div>
-        <button onClick={this._onToggle}>
+        <button className="btn-primary" onClick={this._onToggle}>
           {this.props.sessionStatus === SESSION_STATUSES.STARTED
-            ? 'Stop'
-            : 'Start'}
+            ? '🔴 Stop session'
+            : '🔵 Start session'}
         </button>
       </Fragment>
     );

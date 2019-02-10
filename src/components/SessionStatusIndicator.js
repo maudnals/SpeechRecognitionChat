@@ -1,5 +1,5 @@
 import React from 'react';
-import './SesssionStatusIndicator.css';
+import './SessionStatusIndicator.css';
 
 const SessionStatusIndicator = ({ sessionStatus }) => (
   <div className="SessionStatusIndicator">

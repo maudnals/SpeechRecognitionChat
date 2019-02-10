@@ -3,9 +3,15 @@
 /* -------------------------------- */
 
 html {
-  --background-color-medium: #f4f5f9;
-  --background-color-default: #ccd8e4;
-  --border-default: solid 1px var(--background-color-default);
+  --primary-color: #3b81fb;
+  --primary-color-darker: #1859ca;
+  --background-color-medium-light: #f4f5f9;
+  --background-color-medium: #c4d9ff;
+  --border-color-default: #ccd8e4;
+  --border-default: solid 1px var(--border-color-default);
+  --font-color-default: #001d50;
+  --font-color-inverted: white;
+  font-size: 14px;
 }
 
 /* -------------------------------- */
@@ -20,6 +26,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--font-color-default);
+}
+
+button,
+input,
+textarea,
+select {
+  font-size: 1rem;
 }
 
 textarea {
@@ -34,13 +48,22 @@ pre {
 }
 
 .transcript {
-  background: var(--background-color-medium);
+  background: var(--background-color-medium-light);
   border: var(--border-default);
+}
+
+.bubble {
+  max-width: 100%;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 /* -------------------------------- */
 /* UTILS */
 /* -------------------------------- */
+
+/* Layout */
 
 .flex {
   display: flex;
@@ -57,4 +80,24 @@ pre {
 .mv1 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+/* Buttons */
+
+.btn-primary {
+  padding: 0.8rem;
+  border: none;
+  min-width: 10rem;
+  font-weight: bold;
+  background: var(--primary-color);
+  border-radius: 2px;
+  box-shadow: 0px 4px 10px rgba(59, 129, 251, 0.25);
+  color: var(--font-color-inverted);
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease-out;
+}
+
+.btn-primary:hover {
+  background: var(--primary-color-darker);
 }
