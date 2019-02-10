@@ -15,6 +15,14 @@ class App extends Component {
     log: []
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.log.length !== this.state.log.length) {
+      if (this.transcript) {
+        this.transcript.scrollTop = this.transcript.scrollHeight;
+      }
+    }
+  }
+
   _startSession = () => {
     this.props.updateSessionStatus(SESSION_STATUSES.STARTED);
     // would need a callback here!
@@ -62,6 +70,7 @@ class App extends Component {
         </div>
         <div className="flex">
           <div
+            ref={ref => (this.transcript = ref)}
             className="mr05 mv1 transcript"
             style={{
               height: '30vh',
