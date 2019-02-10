@@ -73,13 +73,16 @@ pre {
   margin: 0 0.5rem;
 }
 
-.mr05 {
-  margin-right: 0.5rem;
+.mr2 {
+  margin-right: 2rem;
 }
 
-.mv1 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.mb2 {
+  margin-bottom: 2rem;
+}
+
+.flex-1 {
+  flex: 1;
 }
 
 /* Buttons */
@@ -96,6 +99,9 @@ pre {
   outline: none;
   cursor: pointer;
   transition: background 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary:hover {

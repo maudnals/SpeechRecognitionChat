@@ -7,6 +7,7 @@ import { getSessionStatus } from './redux/selectors';
 import SessionStatusIndicator from './components/SessionStatusIndicator';
 import SpeechBubble from './components/SpeechBubble';
 import SESSION_STATUSES from './const/sessionStatuses';
+import { Message } from 'protobufjs';
 
 class App extends Component {
   ASRInstance = new ASRClient('wss://vibe-rc.i2x.ai');
@@ -61,45 +62,78 @@ class App extends Component {
     }));
   };
 
+  formatMessage = msg => {
+    let x = msg;
+    const b = this.state.phrases.reduce((acc, phrase) => {
+      const arr = msg.split('');
+      const i = msg.toLowerCase().indexOf(phrase.toLowerCase());
+      if (i + 1) {
+        const arr1 = arr.slice(0, i);
+        const arr2 = arr.slice(i + phrase.length, arr.length);
+        x = [...arr1, '<em>', phrase, '</em>', ...arr2].join('');
+      }
+      return x;
+      // todos
+      // test if begining, end
+      // what is stuff is here double
+      // snaitize
+      // test that it updates well with user input
+      // what if nested????
+      // also highlight the right one
+    }, msg);
+    return x;
+  };
+  // this.state.phrases && this.state.phrases.includes `${msg} yooooo`;
+
   render() {
     const transcriptMessages = this.state.transcriptLog.map(l => (
       <SpeechBubble key={l.timestamp}>
-        <div className="bubble">{l.transcript.utterance}</div>
+        <div className="bubble">
+          {this.formatMessage(l.transcript.utterance)}
+        </div>
       </SpeechBubble>
     ));
-    console.log(transcriptMessages);
+    console.log(this.state.phrases);
 
     return (
       <Fragment>
-        <div>
+        <div className="mb2">
           <SessionStatusIndicator sessionStatus={this.props.sessionStatus} />
         </div>
-        <div className="flex">
-          <div
-            ref={ref => (this.transcript = ref)}
-            className="mr05 mv1 transcript"
-            style={{
-              height: '30vh',
-              width: '100%',
-              overflowY: 'auto'
-            }}
-          >
-            <pre>{transcriptMessages}</pre>
+        <div className="flex mb2">
+          <div className="mr2 flex-1">
+            <h3>Transcript</h3>
+            <div
+              ref={ref => (this.transcript = ref)}
+              className="transcript"
+              style={{
+                height: '60vh',
+                width: '100%',
+                overflowY: 'auto'
+              }}
+            >
+              <pre>{transcriptMessages}</pre>
+            </div>
           </div>
-          <div className="mv1">
-            <textarea
-              onChange={this._onUpdatePhrases}
-              value={this.state.phrases.join('\n')}
-              cols="30"
-              rows="10"
-            />
+          <div>
+            <h3>Spotting phrases</h3>
+            <div>
+              <textarea
+                onChange={this._onUpdatePhrases}
+                value={this.state.phrases.join('\n')}
+                cols="30"
+                rows="10"
+              />
+            </div>
           </div>
         </div>
-        <button className="btn-primary" onClick={this._onToggle}>
-          {this.props.sessionStatus === SESSION_STATUSES.STARTED
-            ? '🔴 Stop session'
-            : '🔵 Start session'}
-        </button>
+        <div>
+          <button className="btn-primary" onClick={this._onToggle}>
+            {this.props.sessionStatus === SESSION_STATUSES.STARTED
+              ? '🔴 Stop session'
+              : '🔵 Start session'}
+          </button>
+        </div>
       </Fragment>
     );
   }

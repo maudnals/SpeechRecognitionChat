@@ -1,6 +1,8 @@
 .SpeechBubble {
+  --margin-speech-bubble: 1.2rem;
   background: var(--background-color-medium);
-  width: 20%;
-  margin: 1rem;
+  box-sizing: border-box;
+  width: calc(100% - 2 * var(--margin-speech-bubble));
+  margin: var(--margin-speech-bubble);
   padding: 1rem;
 }
