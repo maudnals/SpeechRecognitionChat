@@ -44,16 +44,16 @@ class App extends Component {
   };
 
   _onMessage = (error, results) => {
-    console.log(results);
+    console.log('results', results);
     this.setState(state => ({
-      log: [...state.log, results]
+      log: [...state.log, { ...results, timestamp: Date.now() }]
     }));
   };
 
   render() {
     console.log(this.state.log);
     const sentences = this.state.log.map(l => (
-      <div>{l.transcript.utterance}</div>
+      <div key={l.timestamp}>{l.transcript.utterance}</div>
     ));
     return (
       <Fragment>
@@ -62,12 +62,11 @@ class App extends Component {
         </div>
         <div className="flex">
           <div
-            className="mr05 mv1"
+            className="mr05 mv1 transcript"
             style={{
               height: '30vh',
               width: '100%',
-              overflowY: 'auto',
-              border: '1px solid black'
+              overflowY: 'auto'
             }}
           >
             <pre>{sentences}</pre>
