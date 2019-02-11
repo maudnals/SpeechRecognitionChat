@@ -5,7 +5,6 @@ import { ASRClient } from './asr/ASRClient';
 import { updateSessionStatus } from './redux/actions';
 import { getSessionStatus } from './redux/selectors';
 import SessionStatusIndicator from './components/SessionStatusIndicator';
-import SpeechBubble from './components/SpeechBubble';
 import Transcript from './components/Transcript';
 import SESSION_STATUSES from './const/sessionStatuses';
 
@@ -16,14 +15,6 @@ class App extends Component {
     phrases: ['product', 'Hi', 'Hello', 'My name is'],
     transcriptLog: []
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.transcriptLog.length !== this.state.transcriptLog.length) {
-      if (this.transcript) {
-        this.transcript.scrollTop = this.transcript.scrollHeight;
-      }
-    }
-  }
 
   _startSession = () => {
     this.props.updateSessionStatus(SESSION_STATUSES.STARTED);

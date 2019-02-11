@@ -5,4 +5,14 @@
   width: calc(100% - 2 * var(--margin-speech-bubble));
   margin: var(--margin-speech-bubble);
   padding: 1rem;
+  animation: appear 0.2s ease-out;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
