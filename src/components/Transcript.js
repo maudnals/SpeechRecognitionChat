@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Transcript.css';
 import SpeechBubble from '../components/SpeechBubble';
 import { formatMessage } from '../helpers/messageHelper';
+// import List from 'react-virtualized/List';
 
 class Transcript extends Component {
   componentDidUpdate(prevProps) {
@@ -28,13 +29,14 @@ class Transcript extends Component {
       <div className="Transcript">
         <div
           ref={ref => (this.transcript = ref)}
-          className="transcript"
+          className="transcript-container"
           style={{
             height: '60vh',
             width: '100%',
             overflowY: 'auto'
           }}
         >
+          {/* <List test={'hi'} /> */}
           <pre>{transcriptMessages}</pre>
         </div>
       </div>

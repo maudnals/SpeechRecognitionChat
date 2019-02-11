@@ -13,18 +13,31 @@ class App extends Component {
 
   state = {
     phrases: ['product', 'Hi', 'Hello', 'My name is'],
-    transcriptLog: []
+    transcriptLog: [],
+    errorMessage: ''
+  };
+
+  _setToError = error => {
+    this.setState({ errorMessage: error.toString() });
+    this.props.updateSessionStatus(SESSION_STATUSES.ERROR);
   };
 
   _startSession = () => {
-    this.props.updateSessionStatus(SESSION_STATUSES.STARTED);
-    // TODO: callback
-    this.ASRInstance.start(compact(this.state.phrases), this._onMessage);
+    try {
+      this.ASRInstance.start(compact(this.state.phrases), this._onMessage);
+      this.props.updateSessionStatus(SESSION_STATUSES.STARTED);
+    } catch (error) {
+      this._setToError(error);
+    }
   };
 
   _stopSession = () => {
-    this.props.updateSessionStatus(SESSION_STATUSES.STOPPED);
-    this.ASRInstance.stop();
+    try {
+      this.ASRInstance.stop();
+      this.props.updateSessionStatus(SESSION_STATUSES.STOPPED);
+    } catch (error) {
+      this._setToError(error);
+    }
   };
 
   _onToggle = () => {
@@ -38,6 +51,11 @@ class App extends Component {
   _onUpdatePhrases = event => {
     const nextPhrases = event.target.value.split('\n');
     if (this.ASRInstance.isStarted()) {
+      try {
+        this.ASRInstance.updateSpottingConfig(compact(nextPhrases));
+      } catch (error) {
+        this._setToError(error);
+      }
       this.ASRInstance.updateSpottingConfig(compact(nextPhrases));
     }
     this.setState({ phrases: nextPhrases });
@@ -48,15 +66,20 @@ class App extends Component {
       transcriptLog: [
         ...state.transcriptLog,
         { ...results, timestamp: Date.now() }
-      ]
+      ],
+      error: error
     }));
   };
 
   render() {
+    console.log(this.state);
     return (
       <Fragment>
         <div className="mb2">
-          <SessionStatusIndicator sessionStatus={this.props.sessionStatus} />
+          <SessionStatusIndicator
+            sessionStatus={this.props.sessionStatus}
+            errorMessage={this.state.errorMessage}
+          />
         </div>
         <div className="flex mb2">
           <div className="mr2 flex-1">

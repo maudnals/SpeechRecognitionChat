@@ -8,16 +8,19 @@ html {
   --primary-color-dark: #1859ca;
   --background-color-medium-light: #f4f5f9;
   --background-color-medium: #c4d9ff;
-  --border-color-default: #ccd8e4;
-  --border-default: solid 1px var(--border-color-default);
+  --grey-medium: #ccd8e4;
+  --border-default: solid 1px var(--grey-medium);
   --font-color-default: #001d50;
   --font-color-inverted: white;
-  font-size: 14px;
 }
 
 /* -------------------------------- */
 /* GENERAL */
 /* -------------------------------- */
+
+html {
+  font-size: 14px;
+}
 
 body {
   margin: 0;
@@ -60,18 +63,6 @@ pre {
   font-family: inherit;
 }
 
-.transcript {
-  background: var(--background-color-medium-light);
-  border: var(--border-default);
-}
-
-.bubble {
-  max-width: 100%;
-  border-radius: 3px;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-}
-
 /* -------------------------------- */
 /* UTILS */
 /* -------------------------------- */
@@ -96,6 +87,17 @@ pre {
 
 .flex-1 {
   flex: 1;
+}
+
+/* Animations */
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Buttons */

@@ -1,6 +1,15 @@
-.SessionStatusIndicator .stopped {
-  color: red;
+.SessionStatusIndicator {
+  height: 5.5rem;
 }
+
+.SessionStatusIndicator .stopped {
+  color: var(--grey-medium);
+}
+
 .SessionStatusIndicator .started {
   color: green;
+}
+
+.SessionStatusIndicator .error {
+  color: rgb(248, 0, 62);
 }
