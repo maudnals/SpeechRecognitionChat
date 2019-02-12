@@ -56,7 +56,6 @@ class App extends Component {
       } catch (error) {
         this._setToError(error);
       }
-      this.ASRInstance.updateSpottingConfig(compact(nextPhrases));
     }
     this.setState({ phrases: nextPhrases });
   };
@@ -72,7 +71,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <Fragment>
         <div className="mb2">

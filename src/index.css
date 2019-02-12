@@ -33,6 +33,11 @@ body {
   color: var(--font-color-default);
 }
 
+#root {
+  margin: 0 auto;
+  max-width: 50rem;
+}
+
 /* -------------------------------- */
 /* INPUTS AND CONTROLS */
 /* -------------------------------- */
