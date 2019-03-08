@@ -1,11 +1,8 @@
-# frontend-challenge
-
-## Your task: 
+## Task: 
 You need implement app that would process speech input and transform it to text using ASRClient library.
 Use current code as an example of how to use ASRClient module.
 
-## Requirements:
-1. User React/Redux stack (other libraries permitted too).
+## Specs:
 1. Open the speech recognition connection using the provided adapter (ASRClient).
 1. Render the transcript:
     - Render phrases as chat bubbles. Phrases should be splitted into separate bubbles if the latest appears 2 sec later after the previous.
@@ -14,11 +11,11 @@ Use current code as an example of how to use ASRClient module.
     - either `Session started` or `Disconnected` or `Error` (in which case you should display the error message).
 1. Start/stop button should change titles accordingly.
 
-**Optional (but big plus)**
+**Optional**
 1. Implement virtual scroll for log transcripts
 2. Add some unit/integration/e2e tests. Or describe how you would approach testing.
 
-## Mockup of final result:
+## final result:
 
 ![mockup](./transcript-mock.png)
 
