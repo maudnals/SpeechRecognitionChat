@@ -1,8 +1,8 @@
-## Task: 
-You need implement app that would process speech input and transform it to text using ASRClient library.
-Use current code as an example of how to use ASRClient module.
+## Specs: 
 
-## Specs:
+App that processes speech input and transform it to text using ASRClient library.
+Current code has an example on how to use ASRClient module.
+
 1. Open the speech recognition connection using the provided adapter (ASRClient).
 1. Render the transcript:
     - Render phrases as chat bubbles. Phrases should be splitted into separate bubbles if the latest appears 2 sec later after the previous.
